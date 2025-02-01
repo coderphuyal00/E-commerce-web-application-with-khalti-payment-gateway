@@ -1,0 +1,19 @@
+<a href="{% url 'product_detail' product_id %}">
+    <div class="mb-4">
+        <!-- PRODUCT IMAGE -->
+        <div class="mb-2 aspect-square bg-cover bg-center bg-[url('{% for img in product_images %}{% if forloop.first %}{{ img.image.url }}{% endif %}{% endfor %}')]">
+        </div>
+        <!-- <div class="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
+            <img class="inline-block shrink-0 rounded-[.95rem] w-[50px] h-[50px]" src="{% for img in product_images%}{% if forloop.first %}{{ img.image }}{% endif %}{%endfor%}" alt=" image">
+          </div> -->
+        <!-- PRODUCT NAME + PRICE -->
+        <div class="">
+            <span class="block text-xl font-bold text-primary">{{ product.name }}</span>
+            {% if product.sale_price %}
+                <span class="inline mr-2 text-lg font-bold text-green-600 ">€{{ product.sale_price }}</span>
+            {% endif %}
+            <span class=" text-lg text-secondary {% if product.sale_price %}line-through{% endif %} ">€{{ product.price }}</span>
+        </div>
+    </div>
+</a>
+        
