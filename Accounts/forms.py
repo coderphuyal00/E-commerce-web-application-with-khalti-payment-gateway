@@ -1,6 +1,6 @@
 from django import forms
 from allauth.account.forms import SignupForm
-from .models import User
+from .models import User,UserFavorites
 
 # class UserCreationForm(forms.ModelForm):
 #     class Meta:
@@ -19,3 +19,8 @@ class UserDetailsUpdateForm(forms.ModelForm):
     class Meta:
         model=User
         fields=['full_name','email','phone']
+
+class UserFavoriteForm(forms.ModelForm):
+    class Meta:
+        model=UserFavorites
+        exclude=["user","product"]

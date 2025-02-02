@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category,Size,Product,ProductVariant,ProductImage
+from .models import Category,Product,ProductVariant,ProductImage
 class AddCategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -10,14 +10,6 @@ class AddCategoryForm(forms.ModelForm):
         fields='__all__'
         # exclude=['added_on']
 
-class AddSizeForm(forms.ModelForm):
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args,**kwargs)
-        self.form_title="Size"
-    class Meta:
-        model=Size
-        fields='__all__'
-        # exclude=['added_on']
 
 class AddProductForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):

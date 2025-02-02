@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.decorators import login_required
-from .forms import AddProductForm,AddCategoryForm,AddProductVariantForm,AddSizeForm,AddProductImageForm
+from .forms import AddProductForm,AddCategoryForm,AddProductVariantForm,AddProductImageForm
 from .models import Product,ProductImage
 # Create your views here.
 def home(request):
@@ -25,17 +25,7 @@ def CategoryForm(request):
         form=AddCategoryForm()
 
     return render(request,"Forms/add_category.html",{"form":form})
-@login_required
-def SizeForm(request):
-    if request.method=='POST':
-        form=AddSizeForm(request.POST)
-        if form.is_valid():            
-            form.save()
-            return redirect('form_list')
-    else:
-        form=AddSizeForm()
 
-    return render(request,"Forms/add_size.html",{"form":form})
 @login_required
 def ProductForm(request):
     if request.method=='POST':
@@ -77,4 +67,4 @@ def productDetail(request,product_id):
         "product":product,
         "product_image":product_image
     }
-    return render(request,'products/product_detail.html',context)
+    return render(request,'products/product_overview.html',context)

@@ -1,0 +1,220 @@
+{%extends 'base.html'%}
+{%load custom_filters%}
+{% block title%}{{product.name}} {{product.category}}. SOLELY YOURS{% endblock%}
+{%block content%}
+<main class="flex flex-col h-screen justify-between">
+    <div>
+        <!-- breadcrumbs  -->
+
+        <nav class="mx-auto w-full mt-4 max-w-[1200px] px-5">
+            <ul class="flex items-center">
+                <li class="cursor-pointer">
+                    <a href="{%url 'home'%}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                            <path
+                                d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+                            <path
+                                d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <span class="mx-2 text-gray-500">&gt;</span>
+                </li>
+
+                <li class="text-gray-500">{{product.name}}</li>
+            </ul>
+        </nav>
+        <!-- /breadcrumbs  -->
+    </div>
+
+    <section class="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
+        <!-- image gallery -->
+
+        <div class="container mx-auto px-4">
+            <!-- big image -->
+            <img class="w-full" src="{{product.productimage_set.first.image.url}}" alt="Sofa image" />
+
+            <div class="mt-3 grid grid-cols-4 gap-4">
+                <div>
+                    <img class="cursor-pointer" src="./assets/images/kitchen.png" alt="kitchen image" />
+                </div>
+
+                <div>
+                    <img class="cursor-pointer" src="./assets/images/living-room.png" alt="kitchen image" />
+                </div>
+
+                <div>
+                    <img class="cursor-pointer" src="./assets/images/outdoors.png" alt="kitchen image" />
+                </div>
+
+                <div>
+                    <img class="cursor-pointer" src="./assets/images/product-chair.png" alt="kitchen image" />
+                </div>
+            </div>
+            <!-- /image gallery  -->
+        </div>
+
+        <!-- description  -->
+
+        <div class="mx-auto px-5 lg:px-5">
+            <!-- Product Name -->
+            <h2 class="pt-3 text-2xl font-bold lg:pt-0">{{product.name}}</h2>
+            <!-- Ratings -->
+            <div class="mt-1">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="h-4 w-4 text-yellow-400">
+                        <path fill-rule="evenodd"
+                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="h-4 w-4 text-yellow-400">
+                        <path fill-rule="evenodd"
+                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="h-4 w-4 text-yellow-400">
+                        <path fill-rule="evenodd"
+                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="h-4 w-4 text-yellow-400">
+                        <path fill-rule="evenodd"
+                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="h-4 w-4 text-gray-200">
+                        <path fill-rule="evenodd"
+                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <p class="ml-3 text-sm text-gray-400">(150 reviews)</p>
+                </div>
+            </div>
+            <!-- Availability -->
+            <p class="mt-5 font-bold">
+                Availability: <span class="text-green-600">In Stock</span>
+            </p>
+            <!-- Brand -->
+            <p class="font-bold">Brand: <span class="font-normal">Apex</span></p>
+            <!-- Category -->
+            <p class="font-bold">
+                Category: <span class="font-normal">{{product.category}}</span>
+            </p>
+            <!-- SKU -->
+            <p class="font-bold">
+                SKU: <span class="font-normal">BE45VGTRK</span>
+            </p>
+            <!-- Price -->
+            <p class="mt-4 text-4xl font-bold text-violet-900">
+                {% if product.sale_price %}
+                <span class=" text-lg font-normal text-red-500">- {{product|calculate_discount|floatformat:"0"}}
+                    %</span>
+                <span class=" text-lg text-secondary font-bold text-green-600">${{product.sale_price }}</span>
+                {% endif %}
+            </p>
+            <p class="mt-4 text-4xl font-bold text-violet-900">
+                <span class="inline mr-2 text-lg  {% if product.sale_price %}line-through{% endif %}">${{ product.price
+                    }}</span>
+            </p>
+            <!-- Product Description -->
+            <p class="pt-5 text-sm leading-5 text-gray-500 font-normal">
+                <!-- Description -->
+                {{product.description}}
+            </p>
+            <!-- Size -->
+            <div class="mt-6">
+                <p class="pb-2 text-xs text-gray-500">Size</p>
+
+                <div class="flex gap-1 mt-2">
+                    <ul id="sizesContainer"
+                        class="grid grid-cols-6 gap-3 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12">
+                        {% for variant in product.variants.all %}
+                        {% if variant.quantity is not 0 %}
+                        <li class="col-span-2 bg-white">
+                            <button data-selected data-variant="{{ variant.id }}"
+                                class="w-full py-4 text-center transition-all border-2 cursor-pointer border-primary hover:bg-primary hover:text-white">
+                                {{ variant.get_size_display }}
+                            </button>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- <div class="mt-6">
+                    <p class="pb-2 text-xs text-gray-500">Color</p>
+
+                    <div class="flex gap-1">
+                        <div
+                            class="h-8 w-8 cursor-pointer border border-white bg-gray-600 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+                        </div>
+                        <div
+                            class="h-8 w-8 cursor-pointer border border-white bg-violet-900 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+                        </div>
+                        <div
+                            class="h-8 w-8 cursor-pointer border border-white bg-red-900 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+                        </div>
+                    </div>
+                </div> -->
+
+            <!-- <div class="mt-6">
+                    <p class="pb-2 text-xs text-gray-500">Quantity</p>
+
+                    <div class="flex">
+                        <button
+                            class="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+                            &minus;
+                        </button>
+                        <div
+                            class="flex h-8 w-8 cursor-text items-center justify-center border-t border-b active:ring-gray-500">
+                            1
+                        </div>
+                        <button
+                            class="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+                            &#43;
+                        </button>
+                    </div>
+                </div> -->
+            <!-- Add to bag and favorite buttons-->
+            <div class="mt-7 flex flex-row items-center gap-6">
+                <a href="{%url 'cart'%}" class="flex h-12 w-1/3 items-center justify-center rounded-full bg-violet-900 text-white duration-100 bg-black hover:bg-gray-700">
+                    Add to bag
+                </a>
+                <button
+                    class="flex h-12 w-1/3 items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900">
+
+                    Favorite
+                    <span class="mx-2">
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" role="img" width="24px"
+                            height="24px" fill="none">
+                            <path stroke="currentColor" stroke-width="1.5"
+                                d="M16.794 3.75c1.324 0 2.568.516 3.504 1.451a4.96 4.96 0 010 7.008L12 20.508l-8.299-8.299a4.96 4.96 0 010-7.007A4.923 4.923 0 017.205 3.75c1.324 0 2.568.516 3.504 1.451l.76.76.531.531.53-.531.76-.76a4.926 4.926 0 013.504-1.451">
+                            </path>
+                            <title>non-filled</title>
+                        </svg>
+
+                    </span>
+                </button>
+            </div>
+            <br>
+            <ul class="list-disc font-bold" style="text-align:left">
+                {%for varient in product.variants.all%}
+                <li data-testid="product-description-color-description">Shown:<!-- --> <!-- -->{{varient.color}}</li>
+                {%endfor%}
+                <li data-testid="product-description-style-color">Style:<!-- --> <!-- -->FZ3863-011</li>
+            </ul>
+        </div>
+    </section>
+    {%endblock%}

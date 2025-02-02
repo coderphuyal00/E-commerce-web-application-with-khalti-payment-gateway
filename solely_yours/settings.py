@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'Accounts',
     'Main',
+    'Cart',
     'allauth',
     'allauth.account',
     "crispy_forms",
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'solely_yours.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,"templetes"],
+        'DIRS': [BASE_DIR,"templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

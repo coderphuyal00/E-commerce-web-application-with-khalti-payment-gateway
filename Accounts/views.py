@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
-from .models import User
+from .models import User,UserFavorites
 from django.views.generic import TemplateView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserDetailsUpdateForm
+from .forms import UserDetailsUpdateForm,UserFavoriteForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 class UserProfile(LoginRequiredMixin,TemplateView):
     template_name='account/user_details.html'
@@ -20,4 +21,8 @@ def updateUserDetails(request):
     else:
         form=UserDetailsUpdateForm(instance=request.user)
     return render(request,'account/edit_user_details.html',{'form':form})
-        
+
+@login_required       
+def user_favorite(request):
+    favorite_item=UserFavorites.objects.all()
+
