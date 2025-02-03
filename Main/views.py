@@ -1,7 +1,7 @@
-from django.shortcuts import get_object_or_404, render,redirect
+from django.shortcuts import get_object_or_404, render,redirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import AddProductForm,AddCategoryForm,AddProductVariantForm,AddProductImageForm
-from .models import Product,ProductImage
+from .models import Product,ProductImage,ProductVariant
 # Create your views here.
 def home(request):
     product=Product.objects.all().prefetch_related("productimage_set")
@@ -68,3 +68,13 @@ def productDetail(request,product_id):
         "product_image":product_image
     }
     return render(request,'products/product_overview.html',context)
+def testPage(request):
+    if request.method=="POST":
+        selected_size=request.POST.get('button_value')
+    return render(request,'test.html',{'selected_size':selected_size})
+
+def delete_all_products(request):
+    product=Product.objects.all()
+    product.delete()
+    
+    return HttpResponse("Products deleted successfully.")

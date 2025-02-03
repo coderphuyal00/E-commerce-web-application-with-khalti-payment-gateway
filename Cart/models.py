@@ -1,10 +1,17 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
+class Cart(models.Model):
+    user=models.ForeignKey('Accounts.User',on_delete=models.CASCADE,default=None,blank=True,null=True)
+    session=models.CharField(max_length=50,null=True,blank=True,default=None)
+
 class CartItem(models.Model):
-    item=models.ForeignKey("Main.ProductVariant",on_delete=models.CASCADE)
-    quantity=models.PositiveIntegerField()
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    item=models.ForeignKey("Main.ProductVariant",on_delete=models.CASCADE,null=True)
+    
 
     def __str__(self):
         return self.item
     
+    def get_absoulte_url(self):
+        return reverse("cart",args=[str(self.id)])

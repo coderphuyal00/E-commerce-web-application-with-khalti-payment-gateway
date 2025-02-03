@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solely_yours.settings')
 # Application definition
 
 INSTALLED_APPS = [
