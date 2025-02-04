@@ -124,7 +124,7 @@
                 {% endif %}
             </p>
             <p class="mt-4 text-4xl font-bold text-violet-900">
-                <span class="inline mr-2 text-lg  {% if product.sale_price %}line-through{% endif %}">${{ product.price}}</span>
+                <span class="inline mr-2 text-lg  {% if product.sale_price %}line-through{% endif %}">${{product.price}}</span>
             </p>
             <!-- Product Description -->
             <p class="pt-5 text-sm leading-5 text-gray-500 font-normal">
@@ -135,26 +135,34 @@
             <div class="mt-6">
                 <p class="pb-2 text-xs text-gray-500">Size</p>
 
-                
-                <div class="grid grid-cols-2 gap-2">
-                    <form action="{%url 'test-page' %}" method="POST">
+
+                <form action="{%url 'add-to-cart' product.id%}" method="POST">
+                    <div class="grid grid-cols-2 gap-2">
                         {%csrf_token%}
-                    <button type="submit" value="35/5/34.5" name="button_value" class="flex h-12 w-full items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900 focus:border-gray-900" >EUR : 35.0 / US : 5.0 / UK : 34.5</button>
-                    <button value="35/5/34.5">EUR : 35.0 / US : 5.0 / UK : 34.5</button>
-                    <button value="35/5/34.5">EUR : 35.0 / US : 5.0 / UK : 34.5</button>
-                    </form>
-                  </div>
+                        {%for variant in product.variants.all%}
+                        {%for size in variant.size.all%}
+                        <input type="radio" id="size_button-{{size.id}}" name="button_value" value="{{size.size}}"
+                            class="appearance-none" />
+                        <label for="size_button-{{size.id}}"
+                            class="cursor-pointer flex h-12  items-center justify-center bg-white rounded-xl duration-100 border-gray-200 border-2 hover:border-gray-900 focus:border-gray-900">{{size.size}}</label>
+                        <!-- <button type="button" value="{{size.size}}" name="button_value"
+                            class="flex h-12  items-center justify-center bg-white rounded-xl duration-100 border-gray-200 border-2 hover:border-gray-900 focus:border-gray-900">{{size.size}}</button> -->
+                        <!-- <input type="button" value="{{size.size}}" class="flex h-12 w-full items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900 focus:border-gray-900"> -->
+                        {%endfor%}
+                        {%endfor%}
+                    </div>
+
             </div>
 
             <!-- <div class="mt-6">
                     <p class="pb-2 text-xs text-gray-500">Color</p>
-
+                    
                     <div class="flex gap-1">
                         <div
-                            class="h-8 w-8 cursor-pointer border border-white bg-gray-600 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
-                        </div>
-                        <div
-                            class="h-8 w-8 cursor-pointer border border-white bg-violet-900 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+                        class="h-8 w-8 cursor-pointer border border-white bg-gray-600 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+                    </div>
+                    <div
+                    class="h-8 w-8 cursor-pointer border border-white bg-violet-900 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
                         </div>
                         <div
                             class="h-8 w-8 cursor-pointer border border-white bg-red-900 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
@@ -182,9 +190,20 @@
                 </div> -->
             <!-- Add to bag and favorite buttons-->
             <div class="mt-7 flex flex-row items-center gap-6">
-                <a href="{%url 'add-to-cart' product.id%}" class="flex h-12 w-1/3 items-center justify-center rounded-full bg-violet-900 text-white duration-100 bg-black hover:bg-gray-700">
+                {%for item in cart_items%}
+                {%if item.is_added%}
+                <button type="submit"
+                    class="flex h-12 w-1/3 items-center justify-center rounded-full bg-violet-900 text-white duration-100 bg-black hover:bg-gray-700">
+                    Added to bag
+                </button>
+                {%else%}
+                <button type="submit"
+                    class="flex h-12 w-1/3 items-center justify-center rounded-full bg-violet-900 text-white duration-100 bg-black hover:bg-gray-700">
                     Add to bag
-                </a>
+                </button>
+                {%endif%}
+                {%endfor%}
+                </form>
                 <button
                     class="flex h-12 w-1/3 items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900">
 
@@ -203,8 +222,8 @@
             </div>
             <br>
             <ul class="list-disc font-bold" style="text-align:left">
-                {%for varient in product.variants.all%}
-                <li data-testid="product-description-color-description">Shown:<!-- --> <!-- -->{{varient.color}}</li>
+                {%for variant in product.variants.all%}
+                <li data-testid="product-description-color-description">Shown:<!-- --> <!-- -->{{variant.color}}</li>
                 {%endfor%}
                 <li data-testid="product-description-style-color">Style:<!-- --> <!-- -->FZ3863-011</li>
             </ul>

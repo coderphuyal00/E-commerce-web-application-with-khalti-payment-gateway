@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render,redirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import AddProductForm,AddCategoryForm,AddProductVariantForm,AddProductImageForm
 from .models import Product,ProductImage,ProductVariant
+from Cart.models import CartItem
 # Create your views here.
 def home(request):
     product=Product.objects.all().prefetch_related("productimage_set")
@@ -62,16 +63,20 @@ def ProductImageForm(request):
 
 def productDetail(request,product_id):
     product=get_object_or_404(Product,id=product_id)
+    cart_item=CartItem.objects.all()
     product_image=ProductImage.objects.all()
     context={
         "product":product,
-        "product_image":product_image
+        "product_image":product_image,
+        "cart_item":cart_item
     }
     return render(request,'products/product_overview.html',context)
 def testPage(request):
+    return render(request,'test.html')
+def get_gender(request):
     if request.method=="POST":
         selected_size=request.POST.get('button_value')
-    return render(request,'test.html',{'selected_size':selected_size})
+    return HttpResponse(selected_size)
 
 def delete_all_products(request):
     product=Product.objects.all()
