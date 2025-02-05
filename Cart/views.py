@@ -22,8 +22,8 @@ def add_items_to_cart(request,product_id):
             return HttpResponse('Item already added to bag')
         else:
             item.is_added=False
-            item_on_cart=CartItem.objects.create(cart=cart,item=product,size=selected_size)
-            item.is_added=True
+            item_on_cart=CartItem.objects.create(cart=cart,item=product,size=selected_size,is_added=True)
+            # item.is_added=True
 
     return HttpResponse('Item added successfully')
 def cart_view(request):

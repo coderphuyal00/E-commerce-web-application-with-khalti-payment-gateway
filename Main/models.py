@@ -16,9 +16,10 @@ class Product(models.Model):
     name=models.CharField(max_length=20,blank=False,null=False)
     description=models.TextField()
     price=models.FloatField() 
-    sale_price=models.FloatField() 
+    sale_price=models.FloatField(null=True,blank=True) 
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
     added_on=models.DateTimeField(auto_now_add=True)
+    sku=models.CharField(max_length=50,null=False,blank=False)
 
     def __str__(self):
         return self.name
@@ -29,7 +30,7 @@ def upload_to_product_img(instance, filename):
     """
 
     filename = os.path.basename(filename)
-    return os.path.join("product_imgs", filename)
+    return os.path.join("media/product_imgs", filename)
 
 
 class ProductImage(models.Model):
