@@ -63,12 +63,15 @@ def ProductImageForm(request):
 
 def productDetail(request,product_id):
     product=get_object_or_404(Product,id=product_id)
-    cart_item=CartItem.objects.all()
+    product_variant=ProductVariant.objects.get(id=product_id)
+    productID=product_variant.product.id
+    product_var=ProductVariant.objects.filter(id=productID).first()
+    cart_item=CartItem.objects.filter(item=product_var)[0]
     product_image=ProductImage.objects.all()
     context={
         "product":product,
         "product_image":product_image,
-        "cart_item":cart_item
+        "cart_items":cart_item
     }
     return render(request,'products/product_overview.html',context)
 def testPage(request):
