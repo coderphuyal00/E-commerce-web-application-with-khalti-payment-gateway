@@ -6,7 +6,7 @@
         </div> -->
         <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-80">
             <img
-                src="{% for img in product_images%}{% if forloop.first %}{{ img.image }}{% endif %}{%endfor%}"
+                src="{% for img in product_images%}{% if forloop.last %}{{ img.image }}{% endif %}{%endfor%}"
                 alt="card-image" class="object-cover w-full h-full" />
         </div>
         
