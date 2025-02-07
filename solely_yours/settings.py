@@ -149,3 +149,4 @@ ACCOUNT_EMAIL_VERIFICATION='none'
 ACCOUNT_FORMS = {
     'signup': 'Accounts.forms.CustomSignupForm',
 }
+SESSION_SAVE_EVERY_REQUEST = True

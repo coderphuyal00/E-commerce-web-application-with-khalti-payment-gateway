@@ -3,9 +3,13 @@ from django.contrib.auth.decorators import login_required
 from .forms import AddProductForm,AddCategoryForm,AddProductVariantForm,AddProductImageForm,AddSizeForm
 from .models import Product,ProductImage,ProductVariant
 from Cart.models import CartItem
+from Cart.views import associate_cart_with_user
+from Accounts.models import User
 # Create your views here.
 def home(request):
     product=Product.objects.all().prefetch_related("productimage_set")
+    # associate_cart_with_user(request,user=request.user)
+    
     context={
         "products":product
     }

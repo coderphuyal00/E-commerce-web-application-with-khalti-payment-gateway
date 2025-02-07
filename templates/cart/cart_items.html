@@ -1,5 +1,7 @@
 {%extends 'base.html'%}
+{%load custom_filters%}
 {%block title%}Shopping Bag{%endblock%}
+
 {%block content%}
 {%if cart_items %}
 <div class="container mx-auto mt-10">
@@ -8,25 +10,17 @@
         <div class="flex justify-between border-b pb-8">
           <h1 class="font-semibold text-2xl">Shopping Cart</h1>
           <!-- Total items count -->
-          <h2 class="font-semibold text-2xl">3 Items</h2>
+          <h2 class="font-semibold text-2xl">{{cart_items.count|format_item_count}}</h2>
         </div>
         {%for item in cart_items%}
         <div class="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50">
           <div class="md:w-4/12 2xl:w-1/4 w-full">
-            <img src="https://i.ibb.co/6gzWwSq/Rectangle-20-1.png" alt="Black Leather Purse" class="h-full object-center object-cover md:block hidden" />
-            <img src="https://i.ibb.co/TTnzMTf/Rectangle-21.png" alt="Black Leather Purse" class="md:hidden w-full h-full object-center object-cover" />
+            <img src="{{item.item.product.productimage_set.first.image.url}}" alt="Black Leather Purse" class="h-full object-center object-cover md:block hidden" />
+            <img src="{{item.item.product.productimage_set.first.image.url}}" alt="Black Leather Purse" class="md:hidden w-full h-full object-center object-cover" />
           </div>
           <div class="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
-            <p class="text-xs leading-3 text-gray-800 md:pt-0 pt-4">RF293</p>
-            <div class="flex items-center justify-between w-full">
-              <p class="text-base font-black leading-none text-gray-800">{{item.item.product.name}}</p>
-              
-              
-              <select aria-label="Select quantity" class="py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
-                  <option>01</option>
-                  <option>02</option>
-                  <option>03</option>
-                </select>
+            <div class="flex items-center justify-between w-full m-0">
+              <a href="{% url 'product_detail' item.item.product.id %}" class="text-base font-black leading-none text-gray-800">{{item.item.product.name}}</a>
             </div>
             <p class="text-xs leading-3 text-gray-600 pt-2">Size: {{item.size}}</p>
             {%for varient in item.item.product.variants.all%}
@@ -35,42 +29,26 @@
             <p class="w-96 text-xs leading-3 text-gray-600">Composition: 100% calf leather</p>
             <div class="flex items-center justify-between pt-5">
               <div class="flex itemms-center">
-                <p class="text-xs leading-3 underline text-gray-800 cursor-pointer">Add to favorites</p>
-                <p class="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">Remove</p>
+                <a href="" class="  font-medium rounded-lg text-sm inline-flex items-center pr-1 py-2.5 text-center"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" role="img" width="24px"
+                  height="24px" fill="none">
+                  <path stroke="currentColor" stroke-width="1.5"
+                      d="M16.794 3.75c1.324 0 2.568.516 3.504 1.451a4.96 4.96 0 010 7.008L12 20.508l-8.299-8.299a4.96 4.96 0 010-7.007A4.923 4.923 0 017.205 3.75c1.324 0 2.568.516 3.504 1.451l.76.76.531.531.53-.531.76-.76a4.926 4.926 0 013.504-1.451">
+                  </path>
+                  <title>Favorite</title>
+              </svg></a>
+                <a href="{%url 'remove-from-cart' item.item.product.id item.id %}" class="text-white dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+                  <g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M14.98438,2.48633c-0.55152,0.00862 -0.99193,0.46214 -0.98437,1.01367v0.5h-5.5c-0.26757,-0.00363 -0.52543,0.10012 -0.71593,0.28805c-0.1905,0.18793 -0.29774,0.44436 -0.29774,0.71195h-1.48633c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h18c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587h-1.48633c0,-0.26759 -0.10724,-0.52403 -0.29774,-0.71195c-0.1905,-0.18793 -0.44836,-0.29168 -0.71593,-0.28805h-5.5v-0.5c0.0037,-0.2703 -0.10218,-0.53059 -0.29351,-0.72155c-0.19133,-0.19097 -0.45182,-0.29634 -0.72212,-0.29212zM6,9l1.79297,15.23438c0.118,1.007 0.97037,1.76563 1.98438,1.76563h10.44531c1.014,0 1.86538,-0.75862 1.98438,-1.76562l1.79297,-15.23437z"></path></g></g>
+                  <title>Remove</title>
+                  </svg></a>
+                
               </div>
-              <p class="text-base font-black leading-none text-gray-800">,000</p>
+              {% if item.item.product.sale_price %}
+                <span class=" text-lg text-secondary font-bold text-green-600">${{item.item.product.sale_price }}</span>
+                {% endif %}
             </div>
           </div>
         </div>
         {%endfor%}
-  
-        <div class="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50">
-          <div class="md:w-4/12 2xl:w-1/4 w-full">
-            <img src="https://i.ibb.co/6gzWwSq/Rectangle-20-1.png" alt="Black Leather Purse" class="h-full object-center object-cover md:block hidden" />
-            <img src="https://i.ibb.co/TTnzMTf/Rectangle-21.png" alt="Black Leather Purse" class="md:hidden w-full h-full object-center object-cover" />
-          </div>
-          <div class="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
-            <p class="text-xs leading-3 text-gray-800 md:pt-0 pt-4">RF293</p>
-            <div class="flex items-center justify-between w-full">
-              <p class="text-base font-black leading-none text-gray-800">Luxe card holder</p>
-              <select aria-label="Select quantity" class="py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
-                  <option>01</option>
-                  <option>02</option>
-                  <option>03</option>
-                </select>
-            </div>
-            <p class="text-xs leading-3 text-gray-600 pt-2">Height: 10 inches</p>
-            <p class="text-xs leading-3 text-gray-600 py-4">Color: Black</p>
-            <p class="w-96 text-xs leading-3 text-gray-600">Composition: 100% calf leather</p>
-            <div class="flex items-center justify-between pt-5">
-              <div class="flex itemms-center">
-                <p class="text-xs leading-3 underline text-gray-800 cursor-pointer">Add to favorites</p>
-                <p class="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">Remove</p>
-              </div>
-              <p class="text-base font-black leading-none text-gray-800">,000</p>
-            </div>
-          </div>
-        </div>
         <a href="#" class="flex font-semibold text-indigo-600 text-sm mt-10">
           <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512">
             <path
@@ -122,5 +100,7 @@
       </div>
     </div>
   </div>
+  {%else%}
+  <h2 class="text-xl font-bold col-span-full text-primary text-center">Your cart is empty</h2>
   {%endif%}
     {%endblock%}
