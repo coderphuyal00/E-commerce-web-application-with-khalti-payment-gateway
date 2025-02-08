@@ -17,6 +17,12 @@ class Cart(models.Model):
     def remove_item(self,product):
 
         return CartItem.objects.get(item=product,cart=self).delete()
+    def get_total_price(self):
+        cart_items=self.cartitem_set.all()
+        total_price=0
+        for item in cart_items:
+            total_price += item.get_item_price()
+        return total_price
 
     def __str__(self):
         if self.user:
@@ -33,5 +39,10 @@ class CartItem(models.Model):
     def __str__(self):
         return self.item.product.name
     
+    def get_item_price(self):                 
+        total_price=self.quantity*self.item.product.get_price()
+        
+        return total_price           
+                
     def get_absoulte_url(self):
         return reverse("cart",args=[str(self.id)])

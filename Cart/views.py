@@ -49,15 +49,6 @@ def add_items_to_cart(request,product_id):
     quantity=1
     cart1.add_item(product,quantity,selected_size)
 
-    # for item in cart_item:
-    #     if item.item.product.id==product_id:
-    #         item.is_added=True
-    #         return HttpResponse('Item already added to bag')
-    #     else:
-    #         item.is_added=False
-    #         item_on_cart=CartItem.objects.create(cart=cart,item=product,size=selected_size,is_added=True)
-    #         # item.is_added=True
-
     return HttpResponse('Item added successfully')
 
 def remove_from_cart(request,product_id,cart_item_id):
@@ -72,7 +63,16 @@ def remove_from_cart(request,product_id,cart_item_id):
     cart_item=CartItem.objects.get(id=cart_item_id,item=product).delete()
     # cart_item.delete()
     return redirect("cart-view")
-        
+
+def update_cart(request,cart_item_id):
+     cart_item=CartItem.objects.get(id=cart_item_id)
+     cart=cart_item.cart
+     if request.method=="POST":
+        quantity=request.POST.get('quantity')
+     cart_item.quantity=quantity 
+     cart_item.save()      
+     cart.save()
+     return redirect("cart-view")     
 def cart_view(request):
     
     cart=get_cart(request)
@@ -80,6 +80,7 @@ def cart_view(request):
     # items=CartItem.objects.filter(cart=cart)
     items = cart.cartitem_set.all()
     context={
-        'cart_items':items
+        'cart_items':items,
+        'cart':cart
     }
     return render(request,'cart/cart_items.html',context)

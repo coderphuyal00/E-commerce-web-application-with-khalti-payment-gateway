@@ -21,6 +21,10 @@ class Product(models.Model):
     added_on=models.DateTimeField(auto_now_add=True)
     sku=models.CharField(max_length=50,null=False,blank=False)
 
+    def get_price(self):
+        if self.sale_price:
+            return self.sale_price
+        return self.price
     def __str__(self):
         return self.name
 
