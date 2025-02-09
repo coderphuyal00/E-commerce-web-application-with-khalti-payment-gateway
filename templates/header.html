@@ -35,19 +35,19 @@
             </a>
         </div>
 
-        <div class="order-2 md:order-3 flex items-center relative" id="nav-content">
+        <div class="order-2 md:order-3 flex items-center relative gap-6" id="nav-content">
             
             <div class="account-icon" x-data="{ dropdownOpen: false }" >
                 <!-- <button x-on:click="dropdownOpen = !dropdownOpen" class="relative">Click</button> -->
                 
-            <a class="relative inline-block no-underline hover:text-black"
+            <a class="relative inline-block no-underline hover:text-black cursor-pointer"
             {% if request.user.is_authenticated%}
             x-on:click="dropdownOpen = !dropdownOpen"
             {% else %}
             href="{% url 'account_login' %}"
             {%endif%}
             >
-                <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                <svg class="fill-current hover:text-black w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24">
                     <circle fill="none" cx="12" cy="7" r="3" />
                     <path
@@ -70,15 +70,12 @@
                 </div>
             </a>
         </div>
-            <a class="pl-3 inline-block no-underline hover:text-black" href="{%url 'cart-view'%}">
-                <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24">
-                    <path
-                        d="M21,7H7.462L5.91,3.586C5.748,3.229,5.392,3,5,3H2v2h2.356L9.09,15.414C9.252,15.771,9.608,16,10,16h8 c0.4,0,0.762-0.238,0.919-0.606l3-7c0.133-0.309,0.101-0.663-0.084-0.944C21.649,7.169,21.336,7,21,7z M17.341,14h-6.697L8.371,9 h11.112L17.341,14z" />
-                    <circle cx="10.5" cy="18.5" r="1.5" />
-                    <circle cx="17.5" cy="18.5" r="1.5" />
-                </svg>
-            </a>
+        <a href="{%url 'cart-view'%}" class="relative">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 rounded-full text-xs flex items-center justify-center text-white">2</span>
+        </a>
 
         </div>
     </div>
