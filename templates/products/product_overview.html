@@ -125,7 +125,8 @@
                 {% endif %}
             </p>
             <p class="mt-2 text-4xl font-bold text-gray-900">
-                <span class="inline mr-2 text-lg  {% if product.sale_price %}line-through text-gray-600 {% endif %}">${{product.price}}</span>
+                <span
+                    class="inline mr-2 text-lg  {% if product.sale_price %}line-through text-gray-600 {% endif %}">${{product.price}}</span>
             </p>
             <!-- Product Description -->
             <p class="pt-5 text-sm leading-5 text-gray-500 font-normal">
@@ -138,13 +139,15 @@
 
 
                 <form action="{%url 'add-to-cart' product.id%}" method="POST">
-                <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-2 gap-2">
                         {%csrf_token%}
                         {%for variant in product.variants.all%}
                         {%for size in variant.size.all%}
                         <div class="btn-grp m-0">
-                        <input type="radio" id="size_button-{{size.id}}" name="button_value" value="{{size.size}}" class="hidden peer " />
-                        <label for="size_button-{{size.id}}" class="cursor-pointer flex h-12 peer-checked:border-gray-900 items-center justify-center bg-white rounded-xl duration-100 border-gray-200 border-2 hover:border-gray-900 ">{{size.size}}</label>
+                            <input type="radio" id="size_button-{{size.id}}" name="button_value" value="{{size.size}}"
+                                class="hidden peer " />
+                            <label for="size_button-{{size.id}}"
+                                class="cursor-pointer flex h-12 peer-checked:border-gray-900 items-center justify-center bg-white rounded-xl duration-100 border-gray-200 border-2 hover:border-gray-900 ">{{size.size}}</label>
                         </div>
                         <!-- <button type="button" value="{{size.size}}" name="button_value"
                             class="flex h-12  items-center justify-center bg-white rounded-xl duration-100 border-gray-200 border-2 hover:border-gray-900 focus:border-gray-900">{{size.size}}</button> -->
@@ -191,29 +194,32 @@
                 </div> -->
             <!-- Add to bag and favorite buttons-->
             <div class="mt-7 flex flex-row items-center gap-6">
-                
+
                 <button type="submit"
                     class="flex h-12 w-1/3 items-center justify-center rounded-full bg-black text-white duration-100 bg-black hover:bg-gray-700">
                     Add to bag
                 </button>
-                
-                
+
+
                 </form>
-                <button
-                    class="flex h-12 w-1/3 items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900">
+                <form action="{%url 'add-to-favorite' product.id%}" method="POST">
+                    {%csrf_token%}
+                    <button type="submit"
+                        class="flex h-12 w-1/3 items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900">
 
-                    Favorite
-                    <span class="mx-2">
-                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" role="img" width="24px"
-                            height="24px" fill="none">
-                            <path stroke="currentColor" stroke-width="1.5"
-                                d="M16.794 3.75c1.324 0 2.568.516 3.504 1.451a4.96 4.96 0 010 7.008L12 20.508l-8.299-8.299a4.96 4.96 0 010-7.007A4.923 4.923 0 017.205 3.75c1.324 0 2.568.516 3.504 1.451l.76.76.531.531.53-.531.76-.76a4.926 4.926 0 013.504-1.451">
-                            </path>
-                            <title>non-filled</title>
-                        </svg>
+                        Favorite
+                        <span class="mx-2">
+                            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" role="img" width="24px"
+                                height="24px" fill="none">
+                                <path stroke="currentColor" stroke-width="1.5"
+                                    d="M16.794 3.75c1.324 0 2.568.516 3.504 1.451a4.96 4.96 0 010 7.008L12 20.508l-8.299-8.299a4.96 4.96 0 010-7.007A4.923 4.923 0 017.205 3.75c1.324 0 2.568.516 3.504 1.451l.76.76.531.531.53-.531.76-.76a4.926 4.926 0 013.504-1.451">
+                                </path>
+                                <title>non-filled</title>
+                            </svg>
 
-                    </span>
-                </button>
+                        </span>
+                    </button>
+                </form>
             </div>
             <br>
             <ul class="list-disc font-bold" style="text-align:left">

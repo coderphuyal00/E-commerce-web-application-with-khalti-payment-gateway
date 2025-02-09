@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'Accounts',
     'Main',
     'Cart',
+    'Favorite',
     'allauth',
     'allauth.account',
     "crispy_forms",
