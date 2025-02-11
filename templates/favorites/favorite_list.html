@@ -12,7 +12,7 @@
                 </div>
                 <div class="mt-5 flex items-center justify-between">
                     <div class="">
-                        <h6 class="font-medium text-xl leading-8 text-black mb-2">{{item.item.product.name}}</h6>
+                        <a href="{%url 'product_detail' item.item.product.id%}" class="font-medium text-xl leading-8 text-black mb-2">{{item.item.product.name}}</a>
                         <h6 class="font-semibold text-xl leading-8 text-indigo-600">${{item.item.product.get_price}}</h6>
                     </div>
                     <form action="{%url 'add-to-cart' item.item.product.id%}" method="POST">
