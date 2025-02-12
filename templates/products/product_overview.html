@@ -193,41 +193,44 @@
                     </div>
                 </div> -->
             <!-- Add to bag and favorite buttons-->
-            <div class="mt-7 flex flex-row items-center gap-6">
-
-                <button type="submit"
-                    class="flex h-12 w-1/3 items-center justify-center rounded-full bg-black text-white duration-100 bg-black hover:bg-gray-700">
-                    Add to bag
-                </button>
-
-
-                </form>
-                <form action="{%url 'add-to-favorite' product.id%}" method="POST">
-                    {%csrf_token%}
+            <div class="mt-7 w-full ">
+                <div class="buttons flex flex-row items-center justify-between">
                     <button type="submit"
-                        class="flex h-12 w-1/3 items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900">
-
-                        Favorite
-                        <span class="mx-2">
-                            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" role="img" width="24px"
-                                height="24px" fill="none">
-                                <path stroke="currentColor" stroke-width="1.5"
-                                    d="M16.794 3.75c1.324 0 2.568.516 3.504 1.451a4.96 4.96 0 010 7.008L12 20.508l-8.299-8.299a4.96 4.96 0 010-7.007A4.923 4.923 0 017.205 3.75c1.324 0 2.568.516 3.504 1.451l.76.76.531.531.53-.531.76-.76a4.926 4.926 0 013.504-1.451">
-                                </path>
-                                <title>non-filled</title>
-                            </svg>
-
-                        </span>
+                        class="flex h-12 w-1/3 items-center justify-center rounded-full bg-black text-white duration-100 bg-black hover:bg-gray-700">
+                        Add to bag
                     </button>
-                </form>
+
+
+                    </form>
+                    <div class="favorite-btn flex items-center">
+                        <form action="{%url 'add-to-favorite' product.id%}" method="POST">
+                            {%csrf_token%}
+                            <button type="submit"
+                                class="flex p-2 w-full items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900 ">Favorite
+                                <span class="mx-2">
+                                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" role="img"
+                                        width="24px" height="24px" fill="none">
+                                        <path stroke="currentColor" stroke-width="1.5"
+                                            d="M16.794 3.75c1.324 0 2.568.516 3.504 1.451a4.96 4.96 0 010 7.008L12 20.508l-8.299-8.299a4.96 4.96 0 010-7.007A4.923 4.923 0 017.205 3.75c1.324 0 2.568.516 3.504 1.451l.76.76.531.531.53-.531.76-.76a4.926 4.926 0 013.504-1.451">
+                                        </path>
+                                        <title>non-filled</title>
+                                    </svg>
+
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
             <br>
-            <ul class="list-disc font-bold" style="text-align:left">
-                {%for variant in product.variants.all%}
-                <li data-testid="product-description-color-description">Shown:<!-- --> <!-- -->{{variant.color}}</li>
-                {%endfor%}
-                <li data-testid="product-description-style-color">Style:<!-- --> <!-- -->FZ3863-011</li>
-            </ul>
-        </div>
+            <div class="mt-7 w-full">
+                <ul class="list-disc font-bold" style="text-align:left">
+                    {%for variant in product.variants.all%}
+                    <li data-testid="product-description-color-description">Shown:<!-- --> <!-- -->{{variant.color}}
+                    </li>
+                    {%endfor%}
+                    <li data-testid="product-description-style-color">Style:<!-- --> <!-- -->FZ3863-011</li>
+                </ul>
+            </div>
     </section>
     {%endblock%}
