@@ -40,7 +40,7 @@
             <div class="account-icon" x-data="{ dropdownOpen: false }" >
                 <!-- <button x-on:click="dropdownOpen = !dropdownOpen" class="relative">Click</button> -->
                 
-            <a class="relative inline-block no-underline hover:text-black cursor-pointer flex items-center"
+            <a class="relative no-underline hover:text-black cursor-pointer flex items-center"
             {% if request.user.is_authenticated%}
             x-on:click="dropdownOpen = !dropdownOpen"
             {% else %}

@@ -20,13 +20,20 @@
 </head>
 
 <body>
-    {% include 'header.html'%}
-    {% block content%}
+    <header>
+        {% include 'header.html'%}
+    </header>
+    <main>
+        {% block content%}
 
-
-
-    {% endblock%}
-    {% include 'footer.html'%}
+    
+    
+        {% endblock%}
+    </main>
+    <hr>
+    <footer>
+        {% include 'footer.html'%}
+    </footer>
 </body>
 
 </html>
