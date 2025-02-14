@@ -3,7 +3,7 @@
 {%load static%}
 {% block title%}{{product.name}} {{product.category}}. SOLELY YOURS{% endblock%}
 {%block content%}
-<section class="flex flex-col h-screen justify-between">
+<section class="flex flex-col justify-between">
     <div>
         <!-- breadcrumbs  -->
 
@@ -145,7 +145,7 @@
                         {%for size in variant.size.all%}
                         <div class="btn-grp m-0">
                             <input type="radio" id="size_button-{{size.id}}" name="button_value" value="{{size.size}}"
-                                class="hidden peer " />
+                                class="hidden peer "/>
                             <label for="size_button-{{size.id}}"
                                 class="cursor-pointer flex h-12 peer-checked:border-gray-900 items-center justify-center bg-white rounded-xl duration-100 border-gray-200 border-2 hover:border-gray-900 ">{{size.size}}</label>
                         </div>

@@ -44,8 +44,7 @@ def add_items_to_cart(request,product_id):
     product_variant=ProductVariant.objects.get(id=product_id)
     productID=product_variant.product.id
     product=ProductVariant.objects.filter(id=productID).first()
-    cart1=get_cart(request)
-    
+    cart1=get_cart(request)    
     quantity=1
     cart1.add_item(product,quantity,selected_size)
 

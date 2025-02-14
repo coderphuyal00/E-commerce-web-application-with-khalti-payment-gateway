@@ -6,7 +6,7 @@ class Cart(models.Model):
     user=models.ForeignKey('Accounts.User',on_delete=models.CASCADE,blank=True,null=True)
     session=models.CharField(max_length=50,null=True,blank=True,default=None)
     def add_item(self,product,quantity,size):
-        cart_item=CartItem.objects.filter(item=product,cart=self)
+        cart_item=CartItem.objects.filter(item=product,cart=self,size=size)
         if cart_item.exists():
             cart_item=cart_item.first()
             cart_item.quantity=cart_item.quantity+quantity
