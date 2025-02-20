@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{%load custom_filters%}
+{%block title%}Order Summary{%endblock%}
+
+{%block content%}
+{%if orders%}
+{%for order in orders%}
+<p>{{order.order_id}}</p>
+<p>{{order.order_date}}</p>
+{%endfor%}
+{%endif%}
+{%endblock%}
