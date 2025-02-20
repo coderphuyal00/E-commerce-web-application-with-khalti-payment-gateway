@@ -86,9 +86,14 @@ def add_order_items(request):
 
 def my_orders(request):
     orders=Order.objects.filter(user=request.user)
-
+    order_items=OrderItem.objects.filter(order__in=orders)
+    # for order in orders:
+    #     order_id=Order.objects.get(id=order.id)
+    #     items=order_id.orderitem_set.all()
     context={
         'orders':orders,
+        'order_items':order_items,
+        # 'items':items
     }
     return render(request,'orders/my_order.html',context)
 # def my_orders(request):

@@ -1,22 +1,58 @@
 {%load static%}
-<div class="relative group bg-gray-200 h-[40px] shadow-lg rounded-2xl overflow-hidden">
-  <img class="w-full h-full group-hover:h-64 object-cover rounded-2xl transition-all delay-150 duration-300 ease" src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/362cced6-125a-4354-a6e0-f56e747ce4d6/AIR+JORDAN+6+RETRO.png" />
-  <div class="bg-gray-100 dark:bg-gray-700 w-full h-40 absolute left-0 bottom-0 -mb-44 group-hover:mb-0 rounded-b-2xl transition-all delay-150 duration-300 ease">
-    <div class="p-6">
-      <div class="capitalize flex items-center justify-between gap-4">
-        <div>
-          <h2 class="text-red-600 text-lg font-bold">Air Jordan 6 Retro</h2>
-          <p class="dark:text-gray-100">men's shoes</p>
+<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+<!-- component -->
+<section class="py-6 mx-[150px] flex justify-center">
+  <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+    <div class="headings flex flex-col justify-items-start">
+      <h2 class="font-manrope font-bold text-2xl leading-10 text-black mb-1">
+        Order History
+      </h2>
+      <p class="font-normal text-lg leading-8 text-gray-500 mb-11">Check the status of recent orders, manage returns,
+        and
+        discover similar products.</p>
+    </div>
+
+    <div class="mt-5 order-details-section rounded-xl bg-white border p-1 border-gray-500 w-5xl ">
+      <div
+        class=" p-3 w-full bg-white border-b border-gray-500 flex flex-col md:flex-row md:items-center gap-6 transition-all duration-500 ">
+        <div class="box group">
+          <p
+            class="font-normal text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
+            Order Number</p>
+          <h6 class="font-normal font-manrope text-base leading-9 text-gray-600">#1023498789</h6>
         </div>
-        <div>
-        <p class="text-3xl font-bold dark:text-gray-100">$200</p>
+        <div class="box group">
+          <p
+            class="font-semibolcd text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
+            Date Placed</p>
+          <h6 class="font-normal font-manrope text-base leading-9 text-gray-500 ">Dec 01, 2023</h6>
+        </div>
+        <div class="box group">
+          <p
+            class="font-normal text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
+            Total Amount</p>
+          <h6 class="font-normal font-manrope text-base leading-9 text-gray-500">#1023498789</h6>
+        </div>
+
+      </div>
+      <div
+        class="border-b border-gray-500 p-3 flex flex-col md:flex-row  transition-all duration-500 ">
+        <div class="img-box ">
+          <img src="https://pagedone.io/asset/uploads/1701167635.png" alt="Denim Jacket image"
+            class="w-full md:max-w-[122px] rounded-lg object-cover">
+        </div>
+        <div class="flex flex-col justify-start px-4 w-full">
+        <div class="flex flex-row justify-between ">
+          <h5 class="font-medium text-xl leading-8 text-black ">Dark Denim Jacket</h5>
+          <p>Price</p>
+        </div>
+        <div class="product-desc">
+          <p>
+            Are you a minimalist looking for a compact carry option?
+          </p>
         </div>
       </div>
-      <div class="block mt-4">
-        <div class="absolute bottom-2 left-5">
-          <button class="bg-red-600 text-gray-100 font-medium py-2.5 px-4 rounded-xl opacity-90 hover:opacity-100">Add to cart</button>
-        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
