@@ -5,60 +5,73 @@
 {%block content%}
 {%if orders%}
 <section class="py-6 mx-[150px] flex justify-center">
-    <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
-        <div class="headings flex flex-col justify-items-start">
-            <h2 class="font-manrope font-bold text-2xl leading-10 text-black mb-1">
-                Order History
-            </h2>
-            <p class="font-normal text-lg leading-8 text-gray-500 mb-11">Check the status of recent orders, manage returns,
-                and
-                discover similar products.</p>
-            </div>
-            
-            {%for order in order_items%}
-      <div class="mt-5 order-details-section rounded-xl bg-white border p-1 border-gray-500 w-5xl ">
-        <div
-          class=" p-3 w-full bg-white border-b border-gray-500 flex flex-col md:flex-row md:items-center gap-6 transition-all duration-500 ">
-          <div class="box group">
-            <p
-              class="font-normal text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
-              Order Number</p>
-            <h6 class="font-normal font-manrope text-base leading-9 text-gray-600">#{{order.order.order_id}}</h6>
-          </div>
-          <div class="box group">
-            <p
-              class="font-semibolcd text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
-              Date Placed</p>
-            <h6 class="font-normal font-manrope text-base leading-9 text-gray-500 ">{{order.order_date|date}}</h6>
-          </div>
-          <div class="box group">
-            <p
-              class="font-normal text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
-              Total Amount</p>
-            <h6 class="font-normal font-manrope text-base leading-9 text-gray-500">#1023498789</h6>
-          </div>
+  <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+    <div class="headings flex flex-col justify-items-start">
+      <h2 class="font-manrope font-bold text-2xl leading-10 text-black mb-1">
+        Order History
+      </h2>
+      <p class="font-normal text-lg leading-8 text-gray-500 mb-11">Check the status of recent orders, manage returns,
+        and
+        discover similar products.</p>
+    </div>
+
+    {%for order in orders%}
+    <div class="mt-5 order-details-section rounded-xl bg-white border p-1 border-gray-500 w-5xl ">
+      <div
+        class=" p-3 w-full bg-white border-b border-gray-500 flex flex-col md:flex-row md:items-center gap-6 transition-all duration-500 ">
+        <div class="box group">
+          <p
+            class="font-normal text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
+            Order Number</p>
+          <h6 class="font-normal font-manrope text-base leading-9 text-gray-600">#{{order.order_id}}</h6>
         </div>
-        
-        <div class="border-b border-gray-500 p-3 flex flex-col md:flex-row  transition-all duration-500 ">
-          <div class="img-box ">
-            <img src="https://pagedone.io/asset/uploads/1701167635.png" alt="Denim Jacket image"
-              class="w-full md:max-w-[122px] rounded-lg object-cover">
-          </div>
-          <div class="flex flex-col justify-start px-4 w-full">
-          <div class="flex flex-row justify-between ">
-            <h5 class="font-medium text-xl leading-8 text-black ">{{order.item.product.name}}</h5>
-            <p>Price</p>
-          </div>
-          <div class="product-desc">
-            <p>
-              Are you a minimalist looking for a compact carry option?
-            </p>
-          </div>
+        <div class="box group">
+          <p
+            class="font-semibolcd text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
+            Date Placed</p>
+          <h6 class="font-normal font-manrope text-base leading-9 text-gray-500 ">{{order.order_date|date}}</h6>
         </div>
+        <div class="box group">
+          <p
+            class="font-normal text-base leading-7 text-black mb-1 transition-all duration-500 group-hover:text-gray-700">
+            Total Amount</p>
+          <h6 class="font-normal font-manrope text-base leading-9 text-gray-500">${{order.get_ordertotal_price}}</h6>
         </div>
       </div>
-      {%endfor%}
+      {%for item in order.items.all%}
+      <div class=" border-gray-500 p-3 flex flex-col md:flex-row  transition-all duration-500 ">
+        <div class="img-box ">
+          <img src="{{item.item.product.productimage_set.first.image.url}}" alt="Denim Jacket image"
+            class="w-full md:max-w-[122px] rounded-lg object-cover">
+        </div>
+        <div class="flex flex-col justify-start px-4 w-full">
+          <div class="flex flex-row justify-between ">
+            <div><a href="{% url 'product_detail' item.item.product.id %}"
+                class="text-base font-black leading-none text-gray-800">{{item.item.product.name}}</a>
+          </div>
+          <p class="font-bold">${{item.item.product.get_price}}</p>
+        </div>
+        <div class="product-desc">
+          <p class="text-gray-500">
+            {{item.item.product.description}}
+          </p>
+        </div>
+        <div class="product-quantity">
+          <p class="text-gray-500">
+            Quantity : {{item.quantity}}
+          </p>
+        </div>
+        <div class="product-size">
+          <p class="text-gray-500">
+            Size : {{item.size}}
+          </p>
+        </div>
+      </div>
     </div>
-  </section>
+    {%endfor%}
+  </div>
+  {%endfor%}
+  </div>
+</section>
 {%endif%}
 {%endblock%}

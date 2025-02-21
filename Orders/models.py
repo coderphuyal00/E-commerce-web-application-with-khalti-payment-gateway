@@ -24,15 +24,26 @@ class Order(models.Model):
     
     class Meta:
         ordering=['-order_date']
-
+    
+    def get_ordertotal_price(self):
+        order_items=OrderItem.objects.filter(order=self)
+        total_price=0
+        for item in order_items:
+            total_price +=item.get_orderitem_price()
+        return total_price
+    
     def __str__(self):
         return f"{self.order_id} by {self.user.full_name} on {self.order_date.strftime("%Y%m%d")}"
 
 
 class OrderItem(models.Model):
-    order=models.ForeignKey(Order,on_delete=models.CASCADE)
-    item=models.ForeignKey(ProductVariant,on_delete=models.CASCADE)
-
+    order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='items')
+    item=models.ForeignKey(ProductVariant,on_delete=models.CASCADE,related_name='products')
+    size = models.CharField(max_length=50,null=False,blank=False)
+    quantity=models.PositiveIntegerField()
     def __str__(self):
         return f"{self.item.product.name} in Order #{self.order.id}"
 
+    def get_orderitem_price(self):
+        total_price=self.quantity*self.item.product.get_price()
+        return total_price

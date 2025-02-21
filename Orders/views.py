@@ -79,7 +79,9 @@ def add_order_items(request):
     for item in items:
         product_id=item.item.product.id
         product=ProductVariant.objects.filter(id=product_id).first()
-        order_item=OrderItem.objects.get_or_create(order=order,item=product)
+        quantity=item.quantity
+        size=item.size
+        order_item=OrderItem.objects.get_or_create(order=order,item=product,quantity=quantity,size=size)
     # product_variant=ProductVariant.objects.get(id=product_id)
     # productID=product_variant.product.id
     return HttpResponse("Order Created!!")
@@ -87,12 +89,13 @@ def add_order_items(request):
 def my_orders(request):
     orders=Order.objects.filter(user=request.user)
     order_items=OrderItem.objects.filter(order__in=orders)
+    items=Order.objects.prefetch_related('items').all()
     # for order in orders:
     #     order_id=Order.objects.get(id=order.id)
     #     items=order_id.orderitem_set.all()
     context={
         'orders':orders,
-        'order_items':order_items,
+        'order_items':items,
         # 'items':items
     }
     return render(request,'orders/my_order.html',context)
