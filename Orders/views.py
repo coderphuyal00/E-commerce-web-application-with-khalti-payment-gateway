@@ -4,8 +4,12 @@ from Orders.models import Order,OrderItem,MailingDetails
 from Main.models import Product,ProductVariant
 from Cart.views import get_cart
 from Cart.models import CartItem,Cart
-from datetime import datetime
+from datetime import datetime,timedelta
 import threading
+import requests
+import json
+import os
+from dotenv import load_dotenv
 def get_checkout_user(request):
     if  request.user.is_authenticated:
         user, created=Order.objects.get_or_create(user=request.user)
@@ -57,11 +61,15 @@ class OrderIDGenerator:
             return f"{self.current_date}{self.counter:04d}"
 
 order_id_generator=OrderIDGenerator()
+
+def delivery_date_generator(self):
+    today=self
 def create_order(request):
     user=request.user
     address=add_mailingaddress(request)
     order_id=order_id_generator.generate_order_id()
-    order=Order.objects.create(order_id=order_id,user=user,shipping_address=address)
+    delivery_date=datetime.now()+timedelta(days=5)
+    order=Order.objects.create(order_id=order_id,user=user,shipping_address=address,delivery_date=delivery_date)
     return order
 def get_cart_items(request):
     # get cart 
@@ -109,5 +117,41 @@ def my_orders(request):
 #     }
 #     return render(request,'orders/my_orders.html',context)
 
-def orderSummary(request,item_id):
-    order=Order.objects.filter(user=request.user)
+def orderSummary(request):
+    order=Order.objects.filter(user=request.user).first()
+
+    context={
+        'order':order
+    }
+    return render(request,'orders/order_summary.html',context)
+def order_confirmation(request):
+    return render(request,'orders/transaction_completed.html')
+# Payment Gateway Integration
+def pay_with_khalti(request,order_id):
+    order=Order.objects.get(id=order_id)
+    amount=int(order.get_total_price_with_charges())
+    customer_name=order.shipping_address.name
+    customer_email=order.shipping_address.email
+    customer_phone=order.shipping_address.phone
+    load_dotenv()
+    url = "https://dev.khalti.com/api/v2/epayment/initiate/"
+    payload = json.dumps({
+        "return_url": "https://www.youtube.com",
+        "website_url": "http://127.0.0.1:8000/",
+        "amount": amount,
+        "purchase_order_id": order.order_id,
+        "purchase_order_name": 'test' ,
+        "customer_info": {
+        "name": customer_name,
+        "email": customer_email,
+        "phone": customer_phone
+        }
+    })
+    # print(os.getenv("LIVE_SECRET_KEY"))
+    headers = {
+        'Authorization': f"{os.getenv("LIVE_SECRET_KEY")}",
+        'Content-Type': 'application/json',
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.text)
+    return response
