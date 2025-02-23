@@ -7,9 +7,8 @@ import datetime
 from datetime import timezone,datetime,timedelta
 # Create your models here.
 def default_now():
-      return datetime.datetime.now()
-def default_delivery_date():
-    return datetime.now()+timedelta(days=5)
+      return datetime.now()
+
 class MailingDetails(models.Model):
     name=models.CharField(max_length=200,blank=False,null=False)
     phone=models.CharField(max_length=10,null=False,blank=False)
@@ -22,7 +21,7 @@ class Order(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     order_date=models.DateTimeField(default=default_now)
     shipping_address=models.ForeignKey(MailingDetails,on_delete=models.CASCADE)
-    delivery_date=models.DateTimeField(default=default_delivery_date)
+    delivery_date=models.DateTimeField()
     class Meta:
         ordering=['-order_date']
     

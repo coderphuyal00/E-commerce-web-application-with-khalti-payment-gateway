@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from Orders.models import Order,OrderItem,MailingDetails
@@ -127,7 +128,7 @@ def orderSummary(request):
 def order_confirmation(request):
     return render(request,'orders/transaction_completed.html')
 # Payment Gateway Integration
-def pay_with_khalti(request,order_id):
+def initiate_khalti(request,order_id):
     order=Order.objects.get(id=order_id)
     amount=int(order.get_total_price_with_charges())
     customer_name=order.shipping_address.name
@@ -153,5 +154,7 @@ def pay_with_khalti(request,order_id):
         'Content-Type': 'application/json',
     }
     response = requests.request("POST", url, headers=headers, data=payload)
-    print(response.text)
-    return response
+    # print(response.text)
+    data=response.json()
+    payment_url=data["payment_url"]
+    return HttpResponseRedirect(payment_url)
