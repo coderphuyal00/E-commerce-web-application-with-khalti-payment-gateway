@@ -93,7 +93,16 @@ def add_order_items(request):
         order_item=OrderItem.objects.get_or_create(order=order,item=product,quantity=quantity,size=size)
     # product_variant=ProductVariant.objects.get(id=product_id)
     # productID=product_variant.product.id
-    return HttpResponse("Order Created!!")
+    order_id=order.id
+    if request.method=="POST":
+        payment_method=request.POST.get('payment_method')
+        if payment_method=='khalti':
+            return initiate_khalti(request,order_id)
+        else:
+            return redirect('order-summary')
+    else:
+        return HttpResponse('Please select the payment method.') 
+          
 
 def my_orders(request):
     orders=Order.objects.filter(user=request.user)
@@ -108,15 +117,6 @@ def my_orders(request):
         # 'items':items
     }
     return render(request,'orders/my_order.html',context)
-# def my_orders(request):
-#     order=Order.objects.filter(user=request.user).first()
-#     order_items=order.orderitem_set.all()
-
-#     context={
-#         'order':order,
-#         'order_items':order_items
-#     }
-#     return render(request,'orders/my_orders.html',context)
 
 def orderSummary(request):
     order=Order.objects.filter(user=request.user).first()
