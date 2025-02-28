@@ -22,6 +22,7 @@ class Order(models.Model):
     order_date=models.DateTimeField(default=default_now)
     shipping_address=models.ForeignKey(MailingDetails,on_delete=models.CASCADE)
     delivery_date=models.DateTimeField()
+    payment_method=models.CharField(max_length=100,blank=False,null=False)
     class Meta:
         ordering=['-order_date']
     

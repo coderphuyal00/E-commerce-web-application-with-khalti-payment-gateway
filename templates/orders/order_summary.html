@@ -28,6 +28,11 @@
                 <h6 class="font-semibold font-manrope text-2xl leading-9 text-black">{{order.shipping_address.city}},{{order.shipping_address.district}}
                 </h6>
             </div>
+            <div class="box group">
+                <p class="font-normal text-base leading-7 text-gray-500 mb-3 transition-all duration-500 group-hover:text-gray-700">Payment Method</p>
+                <h6 class="font-semibold font-manrope text-2xl leading-9 text-black">{{order.payment_method}}
+                </h6>
+            </div>
         </div>
         {%for item in order.items.all%}
         <div class="grid grid-cols-7 w-full pb-6 border-b border-gray-100">

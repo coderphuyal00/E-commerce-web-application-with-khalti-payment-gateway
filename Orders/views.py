@@ -70,7 +70,15 @@ def create_order(request):
     address=add_mailingaddress(request)
     order_id=order_id_generator.generate_order_id()
     delivery_date=datetime.now()+timedelta(days=5)
-    order=Order.objects.create(order_id=order_id,user=user,shipping_address=address,delivery_date=delivery_date)
+    pay_method=None
+    if request.method=="POST":
+        payment_method=request.POST.get('payment_method')
+        if payment_method=='khalti':
+            pay_method='Khalti'                       
+            return initiate_khalti(request,order_id)
+        else:
+            pay_method='Cash on Delivery'
+    order=Order.objects.create(order_id=order_id,user=user,shipping_address=address,delivery_date=delivery_date,payment_method=pay_method)
     return order
 def get_cart_items(request):
     # get cart 
@@ -90,18 +98,13 @@ def add_order_items(request):
         product=ProductVariant.objects.filter(id=product_id).first()
         quantity=item.quantity
         size=item.size
-        order_item=OrderItem.objects.get_or_create(order=order,item=product,quantity=quantity,size=size)
+        order_item=OrderItem.objects.get_or_create(order=order,item=product,quantity=quantity,size=size)    
     # product_variant=ProductVariant.objects.get(id=product_id)
     # productID=product_variant.product.id
     order_id=order.id
-    if request.method=="POST":
-        payment_method=request.POST.get('payment_method')
-        if payment_method=='khalti':
-            return initiate_khalti(request,order_id)
-        else:
-            return redirect('order-summary')
-    else:
-        return HttpResponse('Please select the payment method.') 
+    return redirect('order-summary')
+    
+    
           
 
 def my_orders(request):
