@@ -138,7 +138,7 @@
                 <p class="pb-2 text-xs text-gray-500">Size</p>
 
 
-                <form action="{%url 'add-to-cart' product.id%}" method="POST">
+                <form action="{%url 'add-to-cart' product.id%}" method="POST" name="sizeSelection" onsubmit="return validateForm()">
                     <div class="grid grid-cols-2 gap-2">
                         {%csrf_token%}
                         {%for variant in product.variants.all%}
@@ -203,7 +203,7 @@
                         </form>
                     </div>
                     <div class="cta-fav">
-                        <form action="{%url 'add-to-favorite' product.id%}" method="POST">
+                        <form action="{%url 'add-to-favorite' product.id%}" method="POST" >
                             {%csrf_token%}
                             <button type="submit"
                                 class="flex p-3 w-full items-center justify-center bg-white rounded-full duration-100 border-white border-2 hover:border-gray-900 ">Favorite
@@ -235,4 +235,13 @@
         </div>
     </div>
 </section>
+<script>
+    function validateForm(){
+    let form =document.forms['sizeSelection']['button_value'].value;
+    if(form==''){
+        alert('Please select size !')
+        return false;
+    }
+}
+</script>
 {%endblock%}
