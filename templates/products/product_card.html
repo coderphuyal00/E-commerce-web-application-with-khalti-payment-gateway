@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
 {%load static%}
-<a href="{% url 'product_detail' product_id %}">
+<a href="{% url 'product_detail' product_id %}" >
     <div class="mb-4">
         <!-- PRODUCT IMAGE -->
         <!-- <div class="mb-2 aspect-square bg-cover bg-center bg-[url('{% for img in product_images %}{% if forloop.first %}{{ img.image.url }}{% endif %}{% endfor %}')]">

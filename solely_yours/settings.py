@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -157,11 +157,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # for admin login and default auth
     'allauth.account.auth_backends.AuthenticationBackend',  # allauth specific
 ]
-
+load_dotenv()
 # Sending Email to customers
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'unique.myself10402906@gmail.com'
-EMAIL_HOST_PASSWORD = 'vqvz glpv uoiy bxua'
+EMAIL_HOST_PASSWORD = os.getenv("App_Password")

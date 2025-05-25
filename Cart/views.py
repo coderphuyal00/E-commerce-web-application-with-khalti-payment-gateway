@@ -88,13 +88,4 @@ def count_cart_items(request):
    total_items=cart.cartitem_set.count()
    request.session['total_items']=total_items
 
-   return render(request,'header.html',{'total_items':total_items})
-
-#    return response
-
-def get_total_items(request):
-    # count_cart_items(request)
-    total_items=request.session.get('total_items')
-    
-    
-    return render(request,'header.html',{'total_items':total_items})
+   return render(request,'header.html')

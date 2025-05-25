@@ -52,3 +52,28 @@
 .btn-grp input[type="radio"]:checked + label {
     border:2px solid black
   }
+
+.blinking {
+  -webkit-animation: 1s blink ease infinite;
+  -moz-animation: 1s blink ease infinite;
+  -ms-animation: 1s blink ease infinite;
+  -o-animation: 1s blink ease infinite;
+  animation: 1s blink ease infinite;
+  
+}
+
+@keyframes blink {
+    from,to{
+        opacity: 0;
+    }50%{
+        opacity: 1;
+    }
+}
+ .card {
+            transition: transform 0.3s ease-in-out,
+                box-shadow 0.3s ease-in-out;
+        }
+        
+.card:hover{
+    transform: scale(1.05);
+}

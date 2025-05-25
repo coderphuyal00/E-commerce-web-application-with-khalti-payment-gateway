@@ -10,7 +10,6 @@ def home(request):
     product=Product.objects.all().prefetch_related("productimage_set")
     # associate_cart_with_user(request,user=request.user)
     count_cart_items(request)
-    # total_items = request.COOKIES.get('total_items')
     context={
         "products":product,
     }
@@ -100,9 +99,8 @@ def delete_all_products(request):
 
 
 def count_cart_items(request):
-   cart=get_cart(request) 
-   total_items=cart.cartitem_set.count()
-   response=HttpResponse('Cookie Created')
-   response.set_cookie('total_items',total_items)
-
-   return render(request,'header.html',{'total_items':total_items})
+    cart=get_cart(request) 
+    total_items=cart.cartitem_set.count()
+    # print(total_items)
+    request.session['total_items']=total_items
+    return render(request,'header.html')
