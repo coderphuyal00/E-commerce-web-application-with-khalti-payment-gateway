@@ -26,7 +26,7 @@
               <div class="flex flex-row justify-between ">
                 <!-- Product Name -->
                 <div><a href="{% url 'product_detail' item.item.product.id %}"
-                    class="text-base font-black leading-none text-gray-800">{{item.item.product.name}}</a>
+                    class="text-bo font-bold leading-none text-gray-800 ">{{item.item.product.name}}</a>
                 </div>
                 <!-- Add to favorite and remove from cart buttons -->
                 <div class="flex items-start gap-4 justify-end">
@@ -98,14 +98,17 @@
 
       </div>
       {%endfor%}
+      <hr>
+  <h2 class="text-2xl font-bold">Favorites</h2>
+  <p>Want to view your favorites? <a href="{%url 'account_signup'%}" class="hover:underline">Join Us</a> or <a class="hover:underline" href="{%url 'account_login'%}">Sign In</a></p>
     </div>
     <!-- Total prices -->
     <div class="bg-white rounded-md px-4 py-6 h-max shadow-[0_2px_12px_-3px_rgba(61,63,68,0.3)]">
       <ul class="text-gray-800 space-y-4">
-        <li class="flex flex-wrap gap-4 text-sm">Subtotal <span
-            class="ml-auto font-bold">${{cart.get_total_price}}</span></li>
-        <li class="flex flex-wrap gap-4 text-sm">Shipping <span class="ml-auto font-bold">$2.00</span></li>
-        <li class="flex flex-wrap gap-4 text-sm">Tax <span class="ml-auto font-bold">$4.00</span></li>
+        <li class="flex flex-wrap gap-4 text-sm">Subtotal <span class="ml-auto font-bold">${{cart.get_total_price}}</span></li>
+        <li class="flex flex-wrap gap-4 text-sm">Shipping Charge <span class="ml-auto font-bold">-</span></li>
+        <li class="flex flex-wrap gap-4 text-sm">Estimated Tax<span class="ml-auto font-bold">-</span></li>
+
         <hr class="border-gray-300" />
         <li class="flex flex-wrap gap-4 text-sm font-bold">Total <span class="ml-auto">${{cart.get_total_price}}</span></li>
       </ul>
@@ -120,6 +123,7 @@
       <!-- Payment Icons -->
     </div>
   </div>
+  
 </div>
 <!-- Old Cart Style -->
 

@@ -37,7 +37,6 @@ def associate_cart_with_user(request, user):  # Associate cart on login
  
 def add_items_to_cart(request,product_id):
     # cart_item=CartItem.objects.all()
-    
     if request.method=="POST":
         selected_size=request.POST.get('button_value')
     
@@ -47,8 +46,8 @@ def add_items_to_cart(request,product_id):
     cart1=get_cart(request)    
     quantity=1
     cart1.add_item(product,quantity,selected_size)
-
-    return HttpResponse('Item added successfully')
+    count_cart_items(request)
+    return redirect('cart-view')
 
 def remove_from_cart(request,product_id,cart_item_id):
     product_variant=ProductVariant.objects.get(id=product_id)
@@ -73,13 +72,29 @@ def update_cart(request,cart_item_id):
      cart.save()
      return redirect("cart-view")     
 def cart_view(request):
-    
     cart=get_cart(request)
     # item=CartItem.objects.get_or_create(cart=cart)
     # items=CartItem.objects.filter(cart=cart)
+
     items = cart.cartitem_set.all()
     context={
         'cart_items':items,
         'cart':cart
     }
     return render(request,'cart/cart_items.html',context)
+
+def count_cart_items(request):
+   cart=get_cart(request) 
+   total_items=cart.cartitem_set.count()
+   request.session['total_items']=total_items
+
+   return render(request,'header.html',{'total_items':total_items})
+
+#    return response
+
+def get_total_items(request):
+    # count_cart_items(request)
+    total_items=request.session.get('total_items')
+    
+    
+    return render(request,'header.html',{'total_items':total_items})

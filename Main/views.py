@@ -3,15 +3,16 @@ from django.contrib.auth.decorators import login_required
 from .forms import AddProductForm,AddCategoryForm,AddProductVariantForm,AddProductImageForm,AddSizeForm
 from .models import Product,ProductImage,ProductVariant
 from Cart.models import CartItem
-from Cart.views import associate_cart_with_user
+from Cart.views import associate_cart_with_user,get_cart
 from Accounts.models import User
 # Create your views here.
 def home(request):
     product=Product.objects.all().prefetch_related("productimage_set")
     # associate_cart_with_user(request,user=request.user)
-    
+    count_cart_items(request)
+    # total_items = request.COOKIES.get('total_items')
     context={
-        "products":product
+        "products":product,
     }
     return render(request,'products/products.html',context)
 
@@ -96,3 +97,12 @@ def delete_all_products(request):
     product.delete()
     
     return HttpResponse("Products deleted successfully.")
+
+
+def count_cart_items(request):
+   cart=get_cart(request) 
+   total_items=cart.cartitem_set.count()
+   response=HttpResponse('Cookie Created')
+   response.set_cookie('total_items',total_items)
+
+   return render(request,'header.html',{'total_items':total_items})

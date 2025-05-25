@@ -1,13 +1,14 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from Main.models import ProductVariant
 from .models import Favorite,FavoriteItem
 # Create your views here.
 def favorites(request):
+    # user=request.user
     favorite=Favorite.objects.get(user=request.user)  
-    items = favorite.favoriteitem_set.all()
+    items = favorite.favoriteitems.all()
     context={
-            "product":items,
+            "products":items,
             "favorites":favorite
         }
     return render(request,"favorites/favorite_list.html",context)

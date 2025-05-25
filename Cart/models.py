@@ -23,7 +23,13 @@ class Cart(models.Model):
         for item in cart_items:
             total_price += item.get_item_price()
         return total_price
-
+    
+    def get_total_price_with_charges(self):
+        shipping_tax=10
+        cart=Cart.objects.get(id=self.id)
+        total_price=cart.get_total_price()+shipping_tax
+        return total_price
+    
     def __str__(self):
         if self.user:
             return f"{self.user.email}'s cart"

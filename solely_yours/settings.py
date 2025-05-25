@@ -152,3 +152,16 @@ ACCOUNT_FORMS = {
     'signup': 'Accounts.forms.CustomSignupForm',
 }
 SESSION_SAVE_EVERY_REQUEST = True
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # for admin login and default auth
+    'allauth.account.auth_backends.AuthenticationBackend',  # allauth specific
+]
+
+# Sending Email to customers
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'unique.myself10402906@gmail.com'
+EMAIL_HOST_PASSWORD = 'vqvz glpv uoiy bxua'
